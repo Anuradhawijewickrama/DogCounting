@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.asus.dogcounting.signupPage">
+
+    <EditText
+        android:id="@+id/Fname_signup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:ems="10"
+        android:hint="First Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/Lname_signup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Fname_signup"
+        android:layout_alignStart="@+id/Fname_signup"
+        android:layout_below="@+id/Fname_signup"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/email_signup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Lname_signup"
+        android:layout_alignStart="@+id/Lname_signup"
+        android:layout_below="@+id/Lname_signup"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/tp_signup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/password_signup"
+        android:layout_alignLeft="@+id/password_signup"
+        android:layout_alignStart="@+id/password_signup"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="Telephone"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/password_signup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Cpassword_signup"
+        android:layout_alignLeft="@+id/email_signup"
+        android:layout_alignStart="@+id/email_signup"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/Cpassword_signup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_signup"
+        android:layout_alignLeft="@+id/password_signup"
+        android:layout_alignStart="@+id/password_signup"
+        android:layout_marginBottom="48dp"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/button_signup"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="44dp"
+        android:onClick="onSignUp"
+        android:text="@string/signup_page_button" />
+
+</RelativeLayout>

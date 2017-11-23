@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">DogCounting</string>
+    <string name="log_in">LOGIN</string>
+    <string name="Sign_in">SIGN</string>
+    <string name="login_label">Login</string>
+    <string name="signup_label">Sign Up</string>
+    <string name="login_page_login_button">LOGIN</string>
+    <string name="signup_page_button">SIGN UP</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+</resources>
