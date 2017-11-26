@@ -40,6 +40,32 @@
         android:layout_below="@+id/password_login"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
+        android:backgroundTint="#f5097b09"
         android:onClick="onLogin"
         android:text="@string/login_page_login_button" />
+
+    <TextView
+        android:id="@+id/login_new_comer"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/password_login"
+        android:layout_alignStart="@+id/password_login"
+        android:layout_below="@+id/button_login"
+        android:layout_marginTop="55dp"
+        android:text="@string/new_comer"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/login_signup"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/login_new_comer"
+        android:layout_alignBottom="@+id/login_new_comer"
+        android:layout_alignEnd="@+id/password_login"
+        android:layout_alignRight="@+id/password_login"
+        android:onClick="newUserSignup"
+        android:text="@string/login_signup" />
+
 </RelativeLayout>

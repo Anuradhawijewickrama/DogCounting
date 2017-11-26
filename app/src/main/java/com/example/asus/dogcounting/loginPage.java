@@ -1,5 +1,6 @@
 package com.example.asus.dogcounting;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,5 +27,9 @@ public class loginPage extends AppCompatActivity {
         backEndWorker back_end_worker_login_page = new backEndWorker(this);
         //System.out.println("object = "+back_end_worker_login_page);
         back_end_worker_login_page.execute(operation,email,password);
+    }
+    public void newUserSignup(View view){
+        Intent intent = new Intent("com.example.asus.dogcounting.signupPage");
+        startActivity(intent);
     }
 }
