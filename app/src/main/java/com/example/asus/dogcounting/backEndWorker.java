@@ -3,6 +3,7 @@ package com.example.asus.dogcounting;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
@@ -139,6 +140,12 @@ public class backEndWorker extends AsyncTask<String,String,String>{
     protected void onPostExecute(String result) {
         alert_dialog.setMessage(result);
         alert_dialog.show();
+        alert_dialog.dismiss();
+        userPageActivity();
+    }
+    public void userPageActivity(){
+        Intent intent = new Intent("com.example.asus.dogcounting.userPage");
+        context.startActivity(intent);
     }
 
 
