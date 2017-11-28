@@ -84,7 +84,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="44dp"
+        android:background="@color/colorPrimaryDark"
         android:onClick="onSignUp"
-        android:text="@string/signup_page_button" />
+        android:text="@string/signup_page_button"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
 
 </RelativeLayout>

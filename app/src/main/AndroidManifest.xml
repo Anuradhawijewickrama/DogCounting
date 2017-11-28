@@ -37,7 +37,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".userPage"></activity>
+        <activity
+            android:name=".userPage"
+            android:label="User">
+            <intent-filter>
+                <action android:name="com.example.asus.dogcounting.userPage" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

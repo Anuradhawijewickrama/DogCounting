@@ -10,15 +10,14 @@
 
     <Button
         android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="120dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="44dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="134dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="132dp"
         android:background="@drawable/newdog"
         android:gravity="bottom|center"
         android:textColor="@color/colorAccent"
@@ -28,17 +27,17 @@
 
     <Button
         android:id="@+id/button2"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="120dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/button"
-        android:layout_marginEnd="41dp"
-        android:layout_marginRight="41dp"
-        android:background="@drawable/searchdog"
+        android:layout_marginEnd="59dp"
+        android:layout_marginRight="59dp"
+        android:background="@drawable/search"
         android:freezesText="true"
         android:gravity="bottom|center_vertical|center"
+        android:paddingBottom="300dp"
         android:textAlignment="gravity"
         android:textColor="@color/colorAccent"
         android:textColorHighlight="@android:color/holo_blue_dark"
@@ -47,8 +46,7 @@
 
     <Button
         android:id="@+id/button3"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="120dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button"
@@ -58,12 +56,12 @@
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="120dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignBottom="@+id/button3"
         android:layout_alignLeft="@+id/button2"
         android:layout_alignStart="@+id/button2"
-        android:text="Button"
+        android:background="@drawable/dogmap"
         android:textAlignment="center"
         android:textStyle="bold" />
 

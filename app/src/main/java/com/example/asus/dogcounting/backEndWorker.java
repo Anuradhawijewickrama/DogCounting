@@ -2,7 +2,9 @@ package com.example.asus.dogcounting;
 
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -24,7 +26,7 @@ public class backEndWorker extends AsyncTask<String,String,String>{
 
     Context context;
     String operation;
-    AlertDialog alert_dialog;
+    AlertDialog.Builder alert_dialog;
     public backEndWorker(Context context){
         this.context = context;
     }
@@ -129,7 +131,7 @@ public class backEndWorker extends AsyncTask<String,String,String>{
 
     @Override
     protected void onPreExecute() {
-        alert_dialog = new AlertDialog.Builder(context).create();
+        alert_dialog = new AlertDialog.Builder(context);
 
         alert_dialog.setTitle("Login Status");
 
@@ -138,13 +140,24 @@ public class backEndWorker extends AsyncTask<String,String,String>{
 
     @Override
     protected void onPostExecute(String result) {
-        alert_dialog.setMessage(result);
+        alert_dialog.setMessage(result).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+                userPageActivity();
+            }
+        });
+        alert_dialog.create();
         alert_dialog.show();
-        alert_dialog.dismiss();
-        userPageActivity();
+
+
+
+        //alert_dialog.dismiss();
+
     }
     public void userPageActivity(){
         Intent intent = new Intent("com.example.asus.dogcounting.userPage");
+
         context.startActivity(intent);
     }
 
