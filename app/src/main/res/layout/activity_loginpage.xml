@@ -39,10 +39,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/password_login"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:backgroundTint="#f5097b09"
+        android:layout_marginTop="69dp"
         android:onClick="onLogin"
-        android:text="@string/login_page_login_button" />
+        android:text="@string/login_page_login_button"
+        style="@style/buttonStyle"/>
 
     <TextView
         android:id="@+id/login_new_comer"
@@ -59,6 +59,7 @@
 
     <Button
         android:id="@+id/login_signup"
+        style="@style/buttonStyle"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/login_new_comer"

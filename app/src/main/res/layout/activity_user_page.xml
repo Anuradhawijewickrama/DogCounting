@@ -20,6 +20,7 @@
         android:layout_marginTop="132dp"
         android:background="@drawable/newdog"
         android:gravity="bottom|center"
+        android:onClick="enterNewDog"
         android:textColor="@color/colorAccent"
         android:textColorHighlight="@color/colorAccent"
         android:textSize="24sp"

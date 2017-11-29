@@ -46,7 +46,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".DogPage"></activity>
+        <activity
+            android:name=".DogPage"
+            android:label="New Dog">
+            <intent-filter>
+                <action android:name="com.example.asus.dogcounting.DogPage" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
