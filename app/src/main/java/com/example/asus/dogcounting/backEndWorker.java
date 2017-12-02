@@ -126,6 +126,49 @@ public class backEndWorker extends AsyncTask<String,String,String>{
             }
         }
 
+       /*  else if(operation.equals("newDog")){
+                try {
+
+                    String typeOfDog = params[1];
+                    String colorOfDog = params[2];
+                    String decriptionOfDog = params[3];
+                    URL url = new URL(login_url);
+                    HttpURLConnection http_URL_connection = (HttpURLConnection) url.openConnection();
+                    http_URL_connection.setRequestMethod("POST");
+                    http_URL_connection.setDoInput(true);
+                    http_URL_connection.setDoOutput(true);
+
+                    OutputStream out_put_stream = http_URL_connection.getOutputStream();
+                    //System.out.println("here = ");
+                    BufferedWriter buffered_writer = new BufferedWriter(new OutputStreamWriter(out_put_stream, "UTF-8"));
+                    String login_post_data = URLEncoder.encode("email","UTF-8") + "=" + URLEncoder.encode(email,"UTF-8") + "&"
+                            + URLEncoder.encode("password","UTF-8") + "=" + URLEncoder.encode(password,"UTF-8");
+                    buffered_writer.write(login_post_data);
+                    buffered_writer.flush();
+                    buffered_writer.close();
+                    out_put_stream.close();
+
+                    InputStream input_stream = http_URL_connection.getInputStream();
+                    BufferedReader buffered_reader = new BufferedReader(new InputStreamReader(input_stream, "iso-8859-1"));
+
+                    String line = "";
+                    while((line=buffered_reader.readLine())!=null){
+                        result += line;
+
+                    }
+                    buffered_reader.close();
+                    input_stream.close();
+                    http_URL_connection.disconnect();
+
+                    return result;
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }*/
+
+
         return result;
     }
 
@@ -133,7 +176,6 @@ public class backEndWorker extends AsyncTask<String,String,String>{
     protected void onPreExecute() {
         alert_dialog = new AlertDialog.Builder(context);
 
-        alert_dialog.setTitle("Login Status");
 
 
     }
@@ -148,6 +190,12 @@ public class backEndWorker extends AsyncTask<String,String,String>{
             }
         });
         alert_dialog.create();
+        if(operation.equals("Login")){
+            alert_dialog.setTitle("Login Status");
+        }
+        else if(operation.equals("signup")){
+            alert_dialog.setTitle("SignUp Status");
+        }
         alert_dialog.show();
 
 
