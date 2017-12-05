@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:background="@drawable/dog"
     tools:context="com.example.asus.dogcounting.Home">
 
     <Button
@@ -14,11 +13,12 @@
         android:layout_width="136dp"
 
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/loginButton"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="44dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
         android:text="@string/Sign_in"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,12 +28,12 @@
         style="@style/buttonStyle"
         android:layout_width="144dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="23dp"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="19dp"
+        android:layout_alignBaseline="@+id/signUpButton"
+        android:layout_alignBottom="@+id/signUpButton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:text="@string/log_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.71"
@@ -41,5 +41,18 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/signUpButton"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="37dp"
+        android:background="@drawable/dogmark"
+        android:theme="@style/AlertDialog.AppCompat.Light"
+        app:srcCompat="@color/cast_expanded_controller_seek_bar_progress_background_tint_color" />
 
 </RelativeLayout>

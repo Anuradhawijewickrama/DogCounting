@@ -1,99 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.asus.dogcounting.DogPage">
 
-    <EditText
-        android:id="@+id/text_dogType"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/dogMapFragment"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/dogMapFragment"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Type of dog"
-        android:inputType="textPersonName" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.asus.dogcounting.DogPage">
 
-    <EditText
-        android:id="@+id/text_dogColor"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/text_dogType"
-        android:layout_alignStart="@+id/text_dogType"
-        android:layout_below="@+id/text_dogType"
-        android:layout_marginTop="23dp"
-        android:ems="10"
-        android:hint="Color of dog"
-        android:inputType="textPersonName" />
+        <EditText
+            android:id="@+id/text_dogType"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/dogMapFragment"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/dogMapFragment"
+            android:layout_marginTop="24dp"
+            android:ems="10"
+            android:hint="Type of dog"
+            android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/text_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_dogColor"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:ellipsize="none"
-        android:ems="10"
-        android:hint="Decribe the specifications of dog"
-        android:inputType="textPersonName"
-        android:maxWidth="300dp"
-        android:minWidth="300dp"
-        android:singleLine="false" />
+        <EditText
+            android:id="@+id/text_dogColor"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/text_dogType"
+            android:layout_alignStart="@+id/text_dogType"
+            android:layout_below="@+id/text_dogType"
+            android:layout_marginTop="14dp"
+            android:ems="10"
+            android:hint="Color of dog"
+            android:inputType="textPersonName" />
 
-    <fragment
-        android:id="@+id/dogMapFragment"
-        android:name="com.google.android.gms.maps.MapFragment"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_alignLeft="@+id/dogImageView"
-        android:layout_alignStart="@+id/dogImageView"
-        android:layout_below="@+id/text_description"
-        android:layout_marginTop="24dp" />
+        <EditText
+            android:id="@+id/text_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/text_dogColor"
+            android:layout_alignStart="@+id/text_dogColor"
+            android:layout_below="@+id/text_dogColor"
+            android:layout_marginTop="15dp"
+            android:ellipsize="none"
+            android:ems="10"
+            android:hint="Decribe the specifications of dog"
+            android:inputType="textPersonName"
+            android:maxWidth="300dp"
+            android:minWidth="300dp"
+            android:singleLine="false" />
 
-    <ImageView
-        android:id="@+id/dogImageView"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/dogMapFragment"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp"
-        android:contentDescription="Photo"
-        app:srcCompat="@android:color/background_light" />
+        <fragment
+            android:id="@+id/dogMapFragment"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_below="@+id/text_description"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp" />
 
-    <Button
-        android:id="@+id/button_capture"
-        style="@style/buttonStyle"
-        android:layout_width="145dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/dogImageView"
-        android:layout_alignStart="@+id/dogImageView"
-        android:layout_below="@+id/dogImageView"
-        android:layout_marginTop="11dp"
-        android:onClick="launchCamera"
-        android:text="CAPTURE" />
+        <ImageView
+            android:id="@+id/dogImageView"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_alignLeft="@+id/dogMapFragment"
+            android:layout_alignStart="@+id/dogMapFragment"
+            android:layout_below="@+id/dogMapFragment"
+            android:layout_marginTop="30dp"
+            android:contentDescription="Photo"
+            app:srcCompat="@android:color/background_light" />
 
-    <Button
-        android:id="@+id/button_galary"
-        style="@style/buttonStyle"
-        android:layout_width="145dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button_capture"
-        android:layout_alignBottom="@+id/button_capture"
-        android:layout_alignEnd="@+id/dogImageView"
-        android:layout_alignRight="@+id/dogImageView"
-        android:text="GALARY" />
+        <Button
+            android:id="@+id/button_capture"
+            style="@style/buttonStyle"
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/dogImageView"
+            android:layout_alignStart="@+id/dogImageView"
+            android:layout_below="@+id/dogImageView"
+            android:layout_marginTop="11dp"
+            android:onClick="launchCamera"
+            android:text="CAPTURE" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/button_galary"
+            style="@style/buttonStyle"
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/button_capture"
+            android:layout_alignBottom="@+id/button_capture"
+            android:layout_alignEnd="@+id/dogImageView"
+            android:layout_alignRight="@+id/dogImageView"
+            android:text="GALARY" />
+
+    </RelativeLayout>
+
 </ScrollView>

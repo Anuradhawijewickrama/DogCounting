@@ -19,6 +19,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -34,15 +39,48 @@ public class backEndWorker extends AsyncTask<String,String,String>{
     protected String doInBackground(String... params) {
 
         String result="";
-
         operation = params[0];
-        String signup_url = "http://192.168.43.104/DogCounting/signup.php";
-        String login_url = "http://192.168.43.104/DogCounting/login.php";
-        if(operation.equals("Login")){
-            try {
+        String hostserver = "192.168.43.104:3306";
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection myConnection = DriverManager.getConnection("jdbc:mysql://"+hostserver+"/dogcounting","dogCountingApp","");
+            Statement myStatement = myConnection.createStatement();
+           // System.out.println("here"+myConnection);
+          //  ResultSet myResult = myStatement.executeQuery("select * from users");
+            if(operation.equals("Login")){
 
                 String email = params[1];
                 String password = params[2];
+                System.out.println("email  " + email + "pass" + password);
+                ResultSet myLoginResult = myStatement.executeQuery("select * from users");
+                while(myLoginResult.next()) {
+                    //System.out.println("email  " + myLoginResult.getString("password"));
+                    if ((myLoginResult.getString("email").equals(email)) && (myLoginResult.getString("password").equals(password))) {
+                        result = "Login Succesfull";
+                    } else {
+                        result = "not successfull";
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //System.out.println("here"+ e);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+
+        // String signup_url = "http://192.168.43.104/DogCounting/signup.php";
+       // String login_url = "http://192.168.43.104/DogCounting/login.php";
+       /* if(operation.equals("Login")){
+            String email = params[1];
+            String password = params[2];
+
+            try {
+
+
                 URL url = new URL(login_url);
                 HttpURLConnection http_URL_connection = (HttpURLConnection) url.openConnection();
                 http_URL_connection.setRequestMethod("POST");
@@ -126,7 +164,7 @@ public class backEndWorker extends AsyncTask<String,String,String>{
             }
         }
 
-       /*  else if(operation.equals("newDog")){
+        else if(operation.equals("newDog")){
                 try {
 
                     String typeOfDog = params[1];
