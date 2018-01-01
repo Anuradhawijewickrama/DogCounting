@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.asus.dogcounting.DogPage">
@@ -94,6 +92,18 @@
             android:layout_alignEnd="@+id/dogImageView"
             android:layout_alignRight="@+id/dogImageView"
             android:text="GALARY" />
+
+        <Button
+            android:id="@+id/button_submit_dog"
+            style="@style/buttonStyle"
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button_galary"
+            android:layout_alignStart="@+id/button_galary"
+            android:layout_below="@+id/button_galary"
+            android:layout_marginTop="21dp"
+            android:onClick="onSubmit"
+            android:text="@string/submit" />
 
     </RelativeLayout>
 

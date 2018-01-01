@@ -1,5 +1,7 @@
 package com.example.asus.dogcounting;
 
+import android.*;
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -8,6 +10,8 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GestureDetectorCompat;
@@ -29,10 +33,12 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.File;
+
 public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
 
-    GestureDetectorCompat gestureDetect;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static Bitmap dogImage;
     EditText text_dogType;
     EditText text_dogColor;
     EditText text_description;
@@ -41,7 +47,15 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
     Button button_galary;
     GoogleMap googleMapDog;
     LocationManager locationManager;
+    static String userID;
+    String encoded_string,image_name;
 
+    File file;
+    //Uri file_uri;
+
+    //public DogPage(String userID){
+       // this.userID= userID;
+    //}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +66,7 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
             Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
             initMap();
         }
+        System.out.println("userID "+userID);
 
 
         text_dogType = (EditText) findViewById(R.id.text_dogType);
@@ -60,7 +75,7 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
         button_capture = (Button) findViewById(R.id.button_capture);
         button_galary = (Button) findViewById(R.id.button_galary);
         dogImageView = (ImageView) findViewById(R.id.dogImageView);
-
+        image_name = "User "+userID+" dog.png";
 
         if (!hasCamera()) {
             button_capture.setEnabled(false);
@@ -78,14 +93,36 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
 
     public void launchCamera(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+       // getFileUri();
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        //System.out.println("here"+file_uri.getPath());
+        if((ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            System.out.println("here = ");
+        }
+        //intent.putExtra(MediaStore.EXTRA_OUTPUT,getFileUri());
+
+
     }
 
+    /*public Uri getFileUri(){
+        image_name = "User "+userID+" dog";
+        file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+
+                File.separator + image_name);
+        System.out.println("here"+file);
+        Uri file_uri = Uri.fromFile(file);
+        return file_uri;
+    }*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        System.out.println("here = "+data);
+        System.out.println("here = "+resultCode);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data!=null) {
+
             Bundle extras = data.getExtras();
-            Bitmap dogImage = (Bitmap) extras.get("data");
+            dogImage = (Bitmap) extras.get("data");
             dogImageView.setImageBitmap(dogImage);
         }
     }
@@ -96,9 +133,11 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
         String descrpitionOfDog = text_description.getText().toString();
         String operation = "newDog";
 
+        //System.out.println("here"+getFileUri().getPath());
         backEndWorker back_end_worker_newDog = new backEndWorker(this);
-        back_end_worker_newDog.execute(operation, typeOfDog, colorOfDog, descrpitionOfDog);
+        back_end_worker_newDog.execute(operation, userID, typeOfDog, colorOfDog, descrpitionOfDog,image_name);
     }
+
 
     public boolean googleServiceAvailable() {
         GoogleApiAvailability api = GoogleApiAvailability.getInstance();
@@ -132,8 +171,9 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
 
         if ((ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) &&
                 (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            System.out.println("here  "+(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)));
-            return;
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
+            //  System.out.println("here  "+(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)));
 
         }
 
@@ -142,11 +182,12 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
             longitude = location.getLongitude();
             latitude = location.getLatitude();
         }
-
+        System.out.println("here = "+ longitude + " " + latitude);
         LatLng currentlocation = new LatLng(latitude,longitude);
-        CameraUpdate camupdate = CameraUpdateFactory.newLatLngZoom(currentlocation,5);
+        CameraUpdate camupdate = CameraUpdateFactory.newLatLngZoom(currentlocation,15);
         googleMapDog.moveCamera(camupdate);
 
     }
+
 
 }

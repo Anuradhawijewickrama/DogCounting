@@ -10,6 +10,8 @@
     <string name="new_comer">New comer?</string>
     <string name="camera">CAPTURE</string>
     <string name="galary">GALARY</string>
+    <string name="submit">SUBMIT</string>
+    <string name="currentDogCount">Current Dog Count</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
