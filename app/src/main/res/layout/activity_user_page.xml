@@ -38,6 +38,7 @@
         android:background="@drawable/search"
         android:freezesText="true"
         android:gravity="bottom|center_vertical|center"
+        android:onClick="searchdog"
         android:paddingBottom="300dp"
         android:textAlignment="gravity"
         android:textColor="@color/colorAccent"

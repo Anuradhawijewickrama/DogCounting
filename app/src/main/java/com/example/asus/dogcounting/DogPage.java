@@ -38,6 +38,7 @@ import java.io.File;
 public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int RESULT_LOAD_IMAGE = 2;
     static Bitmap dogImage;
     EditText text_dogType;
     EditText text_dogColor;
@@ -49,20 +50,13 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
     LocationManager locationManager;
     static String userID;
     String encoded_string,image_name;
-
-    File file;
-    //Uri file_uri;
-
-    //public DogPage(String userID){
-       // this.userID= userID;
-    //}
+    String imageUploadMethod;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_page);
         if (googleServiceAvailable()) {
-           // System.out.println("here");
             Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
             initMap();
         }
@@ -92,40 +86,37 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
     }
 
     public void launchCamera(View view) {
+        imageUploadMethod = "From camera";
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-       // getFileUri();
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-        //System.out.println("here"+file_uri.getPath());
         if((ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
-
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             System.out.println("here = ");
         }
-        //intent.putExtra(MediaStore.EXTRA_OUTPUT,getFileUri());
-
-
+    }
+    public void uploadFromGalary(View view){
+        imageUploadMethod = "From galary";
+        Intent galaryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galaryIntent,RESULT_LOAD_IMAGE);
     }
 
-    /*public Uri getFileUri(){
-        image_name = "User "+userID+" dog";
-        file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+
-                File.separator + image_name);
-        System.out.println("here"+file);
-        Uri file_uri = Uri.fromFile(file);
-        return file_uri;
-    }*/
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println("here = "+data);
-        System.out.println("here = "+resultCode);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data!=null) {
 
-            Bundle extras = data.getExtras();
-            dogImage = (Bitmap) extras.get("data");
-            dogImageView.setImageBitmap(dogImage);
+        @Override
+        protected void onActivityResult ( int requestCode, int resultCode, Intent data){
+        System.out.println("here = " + data);
+        System.out.println("here = " + resultCode);
+            if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null) {
+
+                Bundle extras = data.getExtras();
+                dogImage = (Bitmap) extras.get("data");
+                dogImageView.setImageBitmap(dogImage);
+            }
+            else if(requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && data != null){
+                Uri selectedImage = data.getData();
+                dogImageView.setImageURI(selectedImage);
+            }
         }
-    }
+
 
     public void onSubmit(View view) {
         String typeOfDog = text_dogType.getText().toString();
@@ -149,7 +140,6 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
             dialog.show();
         } else {
             Toast.makeText(this, "Can't connect to google map", Toast.LENGTH_SHORT).show();
-            //return false;
         }
         return false;
     }
@@ -160,20 +150,12 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
          double latitude =0;
         this.googleMapDog = googleMap;
 
-     /*   if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-
-            return;
-        }
-        googleMapDog.setMyLocationEnabled(true);*/
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if ((ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) &&
                 (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
                     ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
-            //  System.out.println("here  "+(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)));
 
         }
 

@@ -12,6 +12,11 @@
     <string name="galary">GALARY</string>
     <string name="submit">SUBMIT</string>
     <string name="currentDogCount">Current Dog Count</string>
+    <string name="imageOfDog">Image of dog</string>
+    <string name="allDogs">ALL DOGS</string>
+    <string name="nearByDogs">NEARBY DOGS</string>
+    <string name="searchDialogBox">SEARCH DOGS</string>
+
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

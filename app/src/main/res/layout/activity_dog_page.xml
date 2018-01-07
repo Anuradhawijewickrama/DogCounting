@@ -91,6 +91,7 @@
             android:layout_alignBottom="@+id/button_capture"
             android:layout_alignEnd="@+id/dogImageView"
             android:layout_alignRight="@+id/dogImageView"
+            android:onClick="uploadFromGalary"
             android:text="GALARY" />
 
         <Button
