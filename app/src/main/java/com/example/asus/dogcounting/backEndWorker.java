@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Base64;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -91,6 +93,8 @@ public class backEndWorker extends AsyncTask<String,String,String>{
                 String colorOfDog = params[3];
                 String DescOfDog = params[4];
                 String image_name = params[5];
+                String longitude = params[6];
+                String latitude = params[7];
                 String imgPath = "images/"+image_name;
                 Bitmap bitmap = DogPage.dogImage;
                 String encoded_string;
@@ -121,42 +125,114 @@ public class backEndWorker extends AsyncTask<String,String,String>{
 
                 InputStream inputStream = httpurlconnection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-               // String line;
 
-               // while ((line = reader.readLine()) != null) {
-                  // result = result +line;
-                //}
                 reader.close();
                 inputStream.close();
-                String sqlqury = "insert into dogs(dogType, dogColor, dogDescription, img_path, user_id) " +
-                        "values (" + "\"" + typeOfDog + "\"" + "," + "\"" + colorOfDog + "\"" + "," + "\"" + DescOfDog + "\"" + "," + "\"" + imgPath + "\"" + "," + "\"" +user_id + "\"" + ")";
+                String sqlqury = "insert into dogs(dogType, dogColor, dogDescription,longitude,latitude, img_path, user_id) " +
+                        "values (" + "\"" + typeOfDog + "\"" + "," + "\"" + colorOfDog + "\"" + "," + "\"" + DescOfDog + "\"" + "," + "\"" + longitude + "\"" + "," + "\"" +latitude + "\""+ ","+ "\"" +imgPath + "\""+ ","+ "\""+user_id + "\""+ ")";
                 myStatement.executeUpdate(sqlqury);
                 result = "New dog entered sucsessfully";
             }
             else if(operation.equals("searchDog")){
-                String method = params[1];
-                String userid = params[2];
-                searchDogDetails dogDetails;
-                if(method.equals("My Dogs")){
-                    ResultSet rs = myStatement.executeQuery("select * from dogs where user_id =" + "\""+userid+"\"");
+                            String method = params[1];
 
-                    while (rs.next()) {
-                        dogDetails = new searchDogDetails(rs.getString("dogType"),rs.getString("dogColor"),rs.getString("dogDescription"));
-                        searchDog.myDogsArray.add(dogDetails);
+                            searchDogDetails dogDetails;
+                            String img_path = null;
 
+                            String phpUrl = "http://192.168.43.104:80/dogCountingApp/searchDog.php";
+
+
+                            if(method.equals("Nearby Dogs")){
+                                double lngtude=Double.parseDouble(params[2]);
+                                double lattude = Double.parseDouble(params[3]);
+                                ResultSet rs = myStatement.executeQuery("select * from Dogs");
+                                double longitude,latitude;
+                                while (rs.next()) {
+                                    longitude = Double.parseDouble(rs.getString("longitude"));
+                                    latitude = Double.parseDouble(rs.getString("latitude"));
+                                    if ((longitude<=lngtude+0.001&&longitude>=lngtude-0.001)&&(latitude<=lattude+0.001&&longitude>=lattude-0.001)) {
+                                    URL url = new URL(phpUrl);
+                                    HttpURLConnection httpurlconnection = (HttpURLConnection) url.openConnection();
+                                    httpurlconnection.setRequestMethod("POST");
+                                    httpurlconnection.setDoOutput(true);
+                                    OutputStream outputstream = httpurlconnection.getOutputStream();
+                                    BufferedWriter bufferedwriter = new BufferedWriter(new OutputStreamWriter(outputstream, "UTF-8"));
+                                    img_path = rs.getString("img_path");
+
+                                    String data = URLEncoder.encode("img_path", "UTF-8") + "=" + URLEncoder.encode(img_path, "UTF-8");
+
+                                    bufferedwriter.write(data);
+                                    bufferedwriter.flush();
+                                    bufferedwriter.close();
+                                    outputstream.close();
+
+                                    InputStream inputStream = httpurlconnection.getInputStream();
+                                    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                                    String line;
+                                    String imgEncodedString=reader.readLine();
+                                    Bitmap dogImg = null;
+                                    byte[] imageByte = Base64.decode(imgEncodedString, Base64.DEFAULT);
+                                    dogImg = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
+                                    reader.close();
+                                    inputStream.close();
+
+                                    dogDetails = new searchDogDetails(rs.getString("dogType"), rs.getString("dogColor"), rs.getString("dogDescription"), dogImg);
+                                    searchDog.NearByDogsArray.add(dogDetails);
+                                }
                     }
+                                if(searchDog.NearByDogsArray.size()!=0){
+                                    result = "Near By dogs search succesfully";
+                                }
+                                else{
+                                    result = "Sorry Currently have no any dogs in this area";
+                                }
                 }
                 else if(method.equals("All Dogs")){
                     ResultSet rs = myStatement.executeQuery("select * from Dogs");
 
                     while (rs.next()) {
-                        dogDetails = new searchDogDetails(rs.getString("dogType"),rs.getString("dogColor"),rs.getString("dogDescription"));
+                        URL url = new URL(phpUrl);
+                        HttpURLConnection httpurlconnection = (HttpURLConnection)url.openConnection();
+                        httpurlconnection.setRequestMethod("POST");
+                        httpurlconnection.setDoOutput(true);
+                        OutputStream outputstream = httpurlconnection.getOutputStream();
+                        BufferedWriter bufferedwriter = new BufferedWriter(new OutputStreamWriter(outputstream,"UTF-8"));
+                        img_path = rs.getString("img_path");
+
+                        String data = URLEncoder.encode("img_path","UTF-8") + "=" + URLEncoder.encode(img_path,"UTF-8");
+
+                        bufferedwriter.write(data);
+                        bufferedwriter.flush();
+                        bufferedwriter.close();
+                        outputstream.close();
+
+                        InputStream inputStream = httpurlconnection.getInputStream();
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                        String line;
+                        String imgEncodedString=reader.readLine();
+
+                        Bitmap dogImg=null;
+                        byte[] imageByte = Base64.decode(imgEncodedString,Base64.DEFAULT);
+                        dogImg = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
+                        reader.close();
+                        inputStream.close();
+
+                        dogDetails = new searchDogDetails(rs.getString("dogType"),rs.getString("dogColor"),rs.getString("dogDescription"),dogImg);
                         searchDog.allDogsArray.add(dogDetails);
 
+
                     }
-                    result = "All dogs search succesfully";
+                    if(searchDog.allDogsArray.size()!=0){
+                        result = "All dogs search succesfully";
+                    }
+                    else{
+                        result = "Sorry Currently have no any dogs";
+                    }
+
                     return result;
                 }
+
+
 
 
             }
@@ -191,6 +267,11 @@ public class backEndWorker extends AsyncTask<String,String,String>{
                     }
                     else{
                         homePageActivity();
+                    }
+                }
+                else if (operation.equals("newDog")){
+                    if(result.equals("New dog entered sucsessfully")){
+                        userPageActivity();
                     }
                 }
 

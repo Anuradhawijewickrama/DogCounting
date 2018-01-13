@@ -6,10 +6,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 public class userPage extends AppCompatActivity {
 
     static String userID;
+    static String searchType;
     //public userPage(String userID){
         //this.userID = userID;
    // }
@@ -27,10 +29,32 @@ public class userPage extends AppCompatActivity {
         startActivity(intent);
     }
     public void searchdog(View view){
+
         AlertDialog.Builder searchDogBuilder = new AlertDialog.Builder(this);
         View searchDogVeiw = getLayoutInflater().inflate(R.layout.alertdialog_searchdog, null);
+        Button searchAllDogs = (Button) searchDogVeiw.findViewById(R.id.button_allDogs);
+        Button searchNearByDogs = (Button) searchDogVeiw.findViewById(R.id.button_nearByDogs);
 
-        Intent intent = new Intent("com.example.asus.dogcounting.searchDog");
-        startActivity(intent);
+        searchAllDogs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchType = "allDogs";
+                Intent intent = new Intent("com.example.asus.dogcounting.searchDog");
+                startActivity(intent);
+            }
+        });
+        searchNearByDogs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //searchDog searchdog = new searchDog("nearByDogs");
+                searchType = "NearbyDogs";
+                Intent intent = new Intent("com.example.asus.dogcounting.searchDog");
+                startActivity(intent);
+            }
+        });
+        searchDogBuilder.setView(searchDogVeiw);
+        AlertDialog aDialog = searchDogBuilder.create();
+        aDialog.show();
+
     }
 }

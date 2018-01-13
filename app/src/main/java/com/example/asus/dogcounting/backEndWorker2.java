@@ -37,8 +37,8 @@ public class backEndWorker2 extends AsyncTask<String, String, ArrayList<searchDo
                     ResultSet rs = myStatement.executeQuery("select * from dogs where user_id =" + "\""+userid+"\"");
 
                     while (rs.next()) {
-                        dogDetails = new searchDogDetails(rs.getString("dogType"),rs.getString("dogColor"),rs.getString("dogDescription"));
-                        searchDog.myDogsArray.add(dogDetails);
+                        //dogDetails = new searchDogDetails(rs.getString("dogType"),rs.getString("dogColor"),rs.getString("dogDescription"));
+                        //searchDog.myDogsArray.add(dogDetails);
 
                     }
                 }
@@ -46,8 +46,8 @@ public class backEndWorker2 extends AsyncTask<String, String, ArrayList<searchDo
                     ResultSet rs = myStatement.executeQuery("select * from Dogs");
 
                     while (rs.next()) {
-                        dogDetails = new searchDogDetails(rs.getString("dogType"),rs.getString("dogColor"),rs.getString("dogDescription"));
-                        searchDog.allDogsArray.add(dogDetails);
+                       // dogDetails = new searchDogDetails(rs.getString("dogType"),rs.getString("dogColor"),rs.getString("dogDescription"));
+                      //  searchDog.allDogsArray.add(dogDetails);
 
                     }
                 }

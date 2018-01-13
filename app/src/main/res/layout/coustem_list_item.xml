@@ -10,39 +10,38 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="14dp"
+        android:layout_margin="10dp"
         android:contentDescription="@string/imageOfDog"
-        app:srcCompat="@drawable/cast_skip_ad_label_border" />
+        app:srcCompat="@drawable/cast_skip_ad_label_border"
+        android:scaleType="fitXY"/>
 
     <TextView
         android:id="@+id/dogType"
-        android:layout_width="180dp"
+        android:layout_width="190dp"
         android:layout_height="30dp"
         android:layout_alignLeft="@+id/dogColor"
         android:layout_alignStart="@+id/dogColor"
         android:layout_alignTop="@+id/dogImage"
-        android:textSize="18sp" />
+        android:layout_marginBottom="5dp"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/dogColor"
-        android:layout_width="180dp"
+        android:layout_width="190dp"
         android:layout_height="30dp"
+        android:layout_above="@+id/dogDesc"
         android:layout_alignLeft="@+id/dogDesc"
         android:layout_alignStart="@+id/dogDesc"
-        android:layout_below="@+id/dogType"
-        android:layout_marginTop="12dp"
-        android:textSize="18sp" />
+        android:layout_marginBottom="5dp"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/dogDesc"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
+        android:layout_width="190dp"
+        android:layout_height="80dp"
         android:layout_alignBottom="@+id/dogImage"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="11dp"
-        android:layout_marginRight="11dp"
-        android:textSize="18sp" />
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/dogImage"
+        android:layout_toRightOf="@+id/dogImage"
+        android:textSize="16sp" />
 </RelativeLayout>

@@ -32,6 +32,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.File;
 
@@ -51,7 +52,8 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
     static String userID;
     String encoded_string,image_name;
     String imageUploadMethod;
-
+    double longitude = 0;
+    double latitude =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,7 +128,7 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
 
         //System.out.println("here"+getFileUri().getPath());
         backEndWorker back_end_worker_newDog = new backEndWorker(this);
-        back_end_worker_newDog.execute(operation, userID, typeOfDog, colorOfDog, descrpitionOfDog,image_name);
+        back_end_worker_newDog.execute(operation, userID, typeOfDog, colorOfDog, descrpitionOfDog,image_name,Double.toString(longitude),Double.toString(latitude));
     }
 
 
@@ -146,8 +148,7 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
 
 
     public void onMapReady(GoogleMap googleMap) {
-         double longitude = 0;
-         double latitude =0;
+
         this.googleMapDog = googleMap;
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -168,6 +169,7 @@ public class DogPage extends AppCompatActivity implements OnMapReadyCallback{
         LatLng currentlocation = new LatLng(latitude,longitude);
         CameraUpdate camupdate = CameraUpdateFactory.newLatLngZoom(currentlocation,15);
         googleMapDog.moveCamera(camupdate);
+        googleMapDog.addMarker(new MarkerOptions().position(currentlocation));
 
     }
 
